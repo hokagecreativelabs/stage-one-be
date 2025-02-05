@@ -7,16 +7,18 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
+// Main route - this can be used to redirect or document the API
 app.get("/", (req, res) => {
   res.send("Welcome to the Number Classification API! Use /api/classify-number?number=your_number");
 });
 
+// API route for classification
 app.get("/api/classify-number", async (req, res) => {
   const { number } = req.query;
 
   // Validate input
   if (!number || isNaN(number)) {
-    return res.status(400).json({ number, error: true });
+    return res.status(400).json({ error: "Please provide a valid number." });
   }
 
   const num = parseInt(number);
